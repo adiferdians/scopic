@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\JobsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,14 +19,15 @@ Route::get('/', function () {
     return view('view-user.landing-page');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/dashboard', function () {
+        return view('dashboard-admin.index');
+    })->name('dashboard');
+    Route::get('job-opportunities', [JobsController::class, 'jobIndex']);
+    Route::get('job/create', [JobsController::class, 'addJob']);
+    Route::post('job/store', [JobsController::class, 'jobStore']);
+    Route::get('job/get/{id}', [JobsController::class, 'getJob']);
+    Route::post('job/store/{id}', [JobsController::class, 'jobStore']);
 });
 
 require __DIR__.'/auth.php';

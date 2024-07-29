@@ -1,0 +1,8 @@
+.input-split {
+    display: flex;
+}
+
+.button-modal{
+    display: flex;
+    justify-content: center;
+}
